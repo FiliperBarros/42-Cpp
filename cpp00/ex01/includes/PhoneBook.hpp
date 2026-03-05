@@ -12,8 +12,6 @@ class	PhoneBook
 		void		searchContact();
 		std::string	truncateString(std::string);
 		int			all_digit(std::string str);
-
-
 	private:
 		Contact	_Contacts[8];
 		int		_num_Contacts;

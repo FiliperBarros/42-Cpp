@@ -2,6 +2,8 @@
 #include <cmath>
 #include <iostream>
 
+const int Fixed::fractionalBits = 8;
+
 Fixed::Fixed() : rawNumber(0){
     std::cout << "Default constructor called" << std::endl;
 }
@@ -45,14 +47,126 @@ void Fixed::setRawBits( int const raw ){
 }
 
 float Fixed::toFloat( void ) const{
-    return (this->rawNumber / 256);
+    return (static_cast<float>(this->rawNumber) / 256);
 }
 
 int Fixed::toInt( void ) const{
-    return (roundf(this->rawNumber / 256));
-};
+    return (static_cast<int>(roundf(this->toFloat()));
+}
 
+bool Fixed::operator>(const Fixed &other) const{
+    return this->rawNumber > other.rawNumber;
+}
 
+bool Fixed::operator<(const Fixed &other) const{
+    return this->rawNumber < other.rawNumber;
+}
 
+bool Fixed::operator>=(const Fixed &other) const{
+    return this->rawNumber >= other.rawNumber;
+}
 
+bool Fixed::operator<=(const Fixed &other) const{
+    return this->rawNumber <= other.rawNumber;
+}
 
+bool Fixed::operator==(const Fixed &other) const{
+    return this->rawNumber == other.rawNumber;
+}
+
+bool Fixed::operator!=(const Fixed &other) const{
+    return this->rawNumber != other.rawNumber;
+}
+
+Fixed Fixed::operator+(const Fixed &other) const{
+    Fixed result;
+
+    result.setRawBits(this->rawNumber + other.rawNumber);
+    return (result);
+}
+
+Fixed Fixed::operator-(const Fixed &other) const{
+    Fixed result;
+
+    result.setRawBits(this->rawNumber - other.rawNumber);
+    return (result);
+}
+
+// >> fractionalBits == >> 8 == /2e8 == /256
+Fixed Fixed::operator*(const Fixed &other) const
+{
+    Fixed result;
+
+    result.setRawBits(
+        static_cast<int>(
+            (static_cast<long>(this->rawNumber) * other.rawNumber)
+            >> fractionalBits
+        )
+    );
+
+    return (result);
+}
+
+// << fractionalBits ==*<< 8 == *2e8 == *256
+Fixed Fixed::operator/(const Fixed &other) const
+{
+    Fixed result;
+
+    result.setRawBits(
+        static_cast<int>(
+            (static_cast<long>(this->rawNumber) << fractionalBits)
+            / other.rawNumber
+        )
+    );
+
+    return (result);
+}
+
+//++a
+Fixed &Fixed::operator++(){
+    ++this->rawNumber;
+    return *this;
+}
+
+//a++
+Fixed Fixed::operator++(int){
+    Fixed old(*this); 
+    ++this->rawNumber;
+    return old;
+}
+
+//--a
+Fixed &Fixed::operator--(){
+    --this->rawNumber;
+    return *this;
+}
+
+//a--
+Fixed Fixed::operator--(int){
+    Fixed old(*this);
+    --this->rawNumber;
+    return old;
+}
+Fixed &Fixed::min(Fixed &a, Fixed &b){
+    if (a < b)
+        return a;
+    return b;
+}
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b){
+    if (a < b)
+        return a;
+    return b;
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b){
+    if (a > b)
+        return a;
+    return b;
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b){
+    if (a > b)
+        return a;
+    return b;
+}

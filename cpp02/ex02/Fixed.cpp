@@ -79,47 +79,21 @@ bool Fixed::operator!=(const Fixed &other) const{
 }
 
 Fixed Fixed::operator+(const Fixed &other) const{
-    Fixed result;
-
-    result.setRawBits(this->rawNumber + other.rawNumber);
-    return (result);
+    return (Fixed(this->toFloat() + other.toFloat()));
 }
 
 Fixed Fixed::operator-(const Fixed &other) const{
-    Fixed result;
-
-    result.setRawBits(this->rawNumber - other.rawNumber);
-    return (result);
+    return (Fixed(this->toFloat() - other.toFloat()));
 }
 
-// >> fractionalBits == >> 8 == /2e8 == /256
 Fixed Fixed::operator*(const Fixed &other) const
 {
-    Fixed result;
-
-    result.setRawBits(
-        static_cast<int>(
-            (static_cast<long>(this->rawNumber) * other.rawNumber)
-            >> fractionalBits
-        )
-    );
-
-    return (result);
+    return Fixed(this->toFloat() * other.toFloat());
 }
 
-// << fractionalBits ==*<< 8 == *2e8 == *256
 Fixed Fixed::operator/(const Fixed &other) const
 {
-    Fixed result;
-
-    result.setRawBits(
-        static_cast<int>(
-            (static_cast<long>(this->rawNumber) << fractionalBits)
-            / other.rawNumber
-        )
-    );
-
-    return (result);
+    return (Fixed(this->toFloat() / other.toFloat()));
 }
 
 //++a

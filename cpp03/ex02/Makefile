@@ -6,11 +6,11 @@
 #    By: frocha-b <frocha-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/12 10:22:44 by frocha-b          #+#    #+#              #
-#    Updated: 2026/03/11 18:31:30 by frocha-b         ###   ########.fr        #
+#    Updated: 2026/09/21 16:48:34 by frocha-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = replace
+NAME        = FragTrap
 
 # Compiler and flags
 CC          = c++
@@ -21,7 +21,7 @@ CFLAGS      = -Wall -Werror -Wextra -std=c++98 -g
 OBJ_DIR     = objects
 
 # Explicitly list files (Recommended for 42)
-SRC_FILES   =    main.cpp
+SRC_FILES   =    main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
 OBJS        = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.cpp=.o))
 
 # Includes

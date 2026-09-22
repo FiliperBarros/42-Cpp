@@ -1,7 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include "harl.hpp"
+#include "Harl.hpp"
 
 int main(void)
 {

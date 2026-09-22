@@ -51,7 +51,7 @@ float Fixed::toFloat( void ) const{
 }
 
 int Fixed::toInt( void ) const{
-    return (static_cast<int>(roundf(this->toFloat()));
+    return (static_cast<int>(this->toFloat()));
 }
 
 bool Fixed::operator>(const Fixed &other) const{

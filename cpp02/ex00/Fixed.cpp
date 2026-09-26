@@ -1,30 +1,49 @@
-#include "Fixed.hpp"
-#include <iostream>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Fixed.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frocha-b <frocha-b@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/21 21:54:50 by frocha-b          #+#    #+#             */
+/*   Updated: 2026/06/22 13:00:59 by frocha-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-Fixed::Fixed() : rawNumber(0){
-    std::cout << "Default constructor called" << std::endl;
+#include "Fixed.hpp"
+
+Fixed::Fixed(){
+	
+	std::cout << "Default constructor called" << std::endl;
+	value = 0;
 }
 
 Fixed::~Fixed(){
-    std::cout << "Destructor called" << std::endl;
+
+	std::cout << "Destructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &src){
-    std::cout << "Copy constructor called" << std::endl;
-    *this = src;
+Fixed::Fixed(const Fixed& other){
+
+	std::cout << "Copy contructor called" << std::endl;
+	*this = other;
 }
 
-Fixed &Fixed::operator=(const Fixed &src){
-    std::cout << "Copy assignment operator called" << std::endl;
-    this->rawNumber = src.getRawBits();
-    return (*this);
+Fixed& Fixed::operator=(const Fixed& other){
+
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &other)
+		value = other.getRawBits();
+	return *this;
 }
+
 int Fixed::getRawBits(void) const{
-    std::cout << "getRawBits member function called" << std::endl;
-    return (this->rawNumber);
+
+	std::cout << "getRawbits member function called" << std::endl;
+	return this->value;
 }
 
 void Fixed::setRawBits(int const raw){
-    std::cout << "setRawBits member function called" << std::endl;
-    this->rawNumber = raw;
+
+	this->value = raw;
 }
